@@ -3,22 +3,30 @@ using UnityEngine;
 public class Blade : MonoBehaviour
 {
     bool isCutting = false;
-    GameObject currentBladeTrail;
-    CircleCollider2D bladeCollider;
 
-    public GameObject bladeTrail;
+    public GameObject bladeTrailPrefab;
+    public int minVelocity = 10;
+
+    GameObject currentBladeTrail;
 
     Rigidbody2D rb;
+    Collider2D col;
+
+    Vector2 previousPosition;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        bladeCollider = GetComponent<CircleCollider2D>();
+        col = GetComponent<CircleCollider2D>();
+        col.enabled = false;
     }
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        Vector2 currentMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        rb.position = currentMousePosition;
+
+        if (Input.GetMouseButtonDown(0))
         {
             StartCutting();
         }
@@ -29,27 +37,36 @@ public class Blade : MonoBehaviour
 
         if (isCutting)
         {
-            UpdateCut();
+            UpdateCut(currentMousePosition);
         }
+
+        previousPosition = currentMousePosition;
     }
 
-    void UpdateCut()
+    void UpdateCut(Vector2 currentMousePosition)
     {
-        rb.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float velocity = (currentMousePosition - previousPosition).magnitude / Time.deltaTime;
+
+        col.enabled = velocity > minVelocity;
     }
 
     void StartCutting()
     {
-        bladeCollider.enabled = true;
         isCutting = true;
-        currentBladeTrail = Instantiate(bladeTrail, transform);
+        currentBladeTrail = Instantiate(bladeTrailPrefab, transform);
+        col.enabled = false;
+        previousPosition = rb.position;
     }
 
     void StopCutting()
     {
-        bladeCollider.enabled = false;
         isCutting = false;
-        currentBladeTrail.transform.SetParent(null);
-        Destroy(currentBladeTrail, 2f);
+        col.enabled = false;
+
+        if (currentBladeTrail != null)
+        {
+            currentBladeTrail.transform.SetParent(null);
+            Destroy(currentBladeTrail, 2f);
+        }
     }
 }

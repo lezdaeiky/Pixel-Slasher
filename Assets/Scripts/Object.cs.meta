@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 57f3cdfab4ab04449ba507feb7410028
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - rb: {instanceID: 0}
+  - gameManager: {instanceID: 0}
+  - explosion: {fileID: 1457505437383769372, guid: d3d77be544597834f960c33de4ecb687, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,13 +1,18 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class Fruit : MonoBehaviour
+public class Fuit : Object
 {
-    Rigidbody2D rb;
-    public float spawnForce = 160f;
-
-    void Start()
+    public ParticleSystem sliceEffect;
+    void OnTriggerEnter2D (Collider2D col)
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.AddForce(transform.up * spawnForce, ForceMode2D.Impulse);
+        if (col.tag == "Blade")
+        {
+            ParticleSystem slice = Instantiate(sliceEffect, transform.position, Quaternion.identity);
+            slice.Play();
+            gameManager.IcreaseScore();
+            Destroy(gameObject);
+            Destroy(slice.gameObject, 1f);
+        }
     }
 }

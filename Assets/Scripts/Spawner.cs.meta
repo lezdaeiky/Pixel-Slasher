@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: 9cdb56a8d3a544f4980d7a68911bc16b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - fruitPrefab: {fileID: 954309867458671619, guid: 223151eeebd13bf4f9b1912af0ffabb7, type: 3}
+  - bombPrefab: {fileID: 1449553899782099075, guid: 93e9a93f85447a74f8851e34fd69f49e, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
